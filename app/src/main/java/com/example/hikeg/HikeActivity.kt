@@ -132,8 +132,8 @@ class HikeActivity : AppCompatActivity() {
         val hikeRecord = AHike(userID, journeyName, journeyStartedTime, journeyEndTime, totalDistanceTraveled, getCurrentDateTimeSnapshot(), journeyLocations)
         val array1Json = gson.toJson(hikeRecord)
 
-        Log.d("debug", "$hikeRecord")
-        Log.d("debug", "$array1Json")
+        Log.d("debug1", "$hikeRecord")
+        Log.d("debug2", "$array1Json")
         editor.putString(journeyName, array1Json)
         editor.apply()
         callback(true)

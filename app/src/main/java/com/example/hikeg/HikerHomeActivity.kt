@@ -24,6 +24,11 @@ class HikerHomeActivity : AppCompatActivity() {
         profileBtn  = findViewById(R.id.fabHikerProfile)
         logOutBtn   = findViewById(R.id.fabHikerLogout)
 
+        viewAllBtn.setOnClickListener {
+            val intent = Intent(this, MainMapActivity::class.java)
+            startActivity(intent)
+        }
+
         logOutBtn.setOnClickListener {
             Firebase.auth.signOut()
             Toast.makeText(this, "Logging Out", Toast.LENGTH_SHORT).show()
