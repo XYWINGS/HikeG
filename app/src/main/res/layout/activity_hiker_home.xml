@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="center"
+    >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".HikerHomeActivity">
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabRecordHike"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_gravity="center|center_horizontal|center_vertical"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/record_hike"
+        android:src="@drawable/baseline_tour_24"
+        app:backgroundTint="#BB8BF3"
+        app:elevation="6dp"
+        app:fabCustomSize="90dp"
+        app:maxImageSize="56dp"
+        app:rippleColor="@color/white" />
+
+    <TextView
+        android:id="@+id/textViewPassengerScanBus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/record_hike" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabViewAllHikes"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_gravity="center|center_horizontal|center_vertical"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/view_all_hikes"
+        android:src="@android:drawable/ic_dialog_map"
+        app:backgroundTint="#DDBFFF"
+        app:elevation="6dp"
+        app:fabCustomSize="90dp"
+        app:maxImageSize="56dp"
+        app:rippleColor="@color/white" />
+
+    <TextView
+        android:id="@+id/textViewMapGuide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/view_all_hikes" />
+
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabHikerProfile"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_gravity="center|center_horizontal|center_vertical"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/my_profile"
+        android:src="@drawable/baseline_perm_identity_24"
+        app:backgroundTint="#ECDDFD"
+        app:elevation="6dp"
+        app:fabCustomSize="90dp"
+        app:maxImageSize="56dp"
+        app:rippleColor="@color/white" />
+
+    <TextView
+        android:id="@+id/textViewProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/view_the_profile" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabHikerLogout"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_gravity="center|center_horizontal|center_vertical"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/logout"
+        android:src="@drawable/baseline_logout_24"
+        app:backgroundTint="#ECDDFD"
+        app:elevation="6dp"
+        app:fabCustomSize="90dp"
+        app:maxImageSize="56dp"
+        app:rippleColor="@color/white" />
+
+    <TextView
+        android:id="@+id/textViewLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/logout" />
+
+</LinearLayout>
+
+</ScrollView>
