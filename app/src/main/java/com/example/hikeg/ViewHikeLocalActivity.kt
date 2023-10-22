@@ -37,12 +37,14 @@ class ViewHikeLocalActivity : AppCompatActivity() {
                 val type = object : TypeToken<AHike>() {}.type
                 val hike = gson.fromJson<AHike>(jsonString, type)
                 dataList.add(hike)
-            }else{
-                Toast.makeText(this,"No Hike Records Found", Toast.LENGTH_LONG).show()
             }
         }
 
-        Log.d("debug3"," data lis tis $dataList")
+        if (dataList.isEmpty()){
+            Toast.makeText(this@ViewHikeLocalActivity,"No Hike Records Found", Toast.LENGTH_LONG).show()
+        }
+
+     //   Log.d("debug3"," data lis tis $dataList")
 
         hikeAdaptor = LocalHikeAdaptor(dataList.toMutableList(),baseContext)
         recyclerView.adapter = hikeAdaptor

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
@@ -16,6 +17,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.example.hikeg.databinding.ActivityMainMapBinding
 import com.google.android.gms.maps.MapsInitializer
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.Marker
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -29,6 +32,8 @@ class MainMapActivity : AppCompatActivity(), OnMapReadyCallback {
     private val hikeList : MutableList<DataSnapshot> = mutableListOf()
     private lateinit var autoCompleteTextView : AutoCompleteTextView
     private var  suggestionList : MutableList<String>  = mutableListOf()
+    private var  hikeSnapshotMap = HashMap<String, DataSnapshot>()
+    private var hikeMarkersList = mutableListOf<Marker>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +59,7 @@ class MainMapActivity : AppCompatActivity(), OnMapReadyCallback {
                     val hikeName = dataSnapshot.key.toString()
                     if (hikeName.lowercase().contains(searchQuery)) {
                         suggestionList.add(hikeName)
+                        hikeSnapshotMap[hikeName] = dataSnapshot
                     }
                 }
 
@@ -68,6 +74,28 @@ class MainMapActivity : AppCompatActivity(), OnMapReadyCallback {
             override fun beforeTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
+
+        autoCompleteTextView.setOnItemClickListener { parent, _, position, _ ->
+
+            val selectedDataSnapshot = hikeSnapshotMap[parent.getItemAtPosition(position).toString()]
+            if (selectedDataSnapshot != null) {
+
+                var markerList  = mutableListOf<LatLng>()
+                val locationSet = selectedDataSnapshot.child("locationSet")
+                for (locations in locationSet.children){
+                    val latVal  =locations.child("latitude").value as Double
+                    val longVal =locations.child("longitude").value as Double
+                    val latLang = LatLng(latVal,longVal)
+                    markerList.add(latLang)
+//                    Log.d("debug","latlang is $latLang")
+                }
+
+                if (markerList.isNotEmpty()){
+                    addMarkers(markerList)
+                }
+            }
+
+        }
     }
 
 
@@ -83,7 +111,7 @@ class MainMapActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun startThings() {
         getAllHikeRecords{
             if (it){
-                Log.d("Debug" ,"hikedatalist  $hikeList-------------------------------------")
+                autoCompleteTextView.visibility = View.VISIBLE
             }
         }
     }
@@ -107,4 +135,40 @@ class MainMapActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         })
     }
+
+
+    private fun addMarkers(markerLatLngList: List<LatLng>) {
+
+        clearMarkers()
+        var count = 0
+
+        val middle : LatLng = if (markerLatLngList.size %2 == 0){
+            markerLatLngList[markerLatLngList.size/2]
+        }else{
+            markerLatLngList[(markerLatLngList.size + 1)/2]
+        }
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(middle, 15.0f))
+
+        for (latLng in markerLatLngList) {
+            count += 1
+            val newMarker = mMap.addMarker(MarkerOptions()
+                .position(latLng)
+                .title("Number $count")
+                .snippet("Lat: ${latLng.latitude} Long: ${latLng.longitude}"))
+
+            if (newMarker != null) {
+                hikeMarkersList.add(newMarker)
+            }
+        }
+    }
+
+   private  fun clearMarkers() {
+        if (hikeMarkersList.isNotEmpty()){
+            for (marker in hikeMarkersList) {
+                marker.remove()
+            }
+        }
+       hikeMarkersList.clear()
+  }
 }
+
