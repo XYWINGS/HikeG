@@ -6,7 +6,6 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.icu.util.Calendar
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
@@ -29,11 +28,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -59,7 +54,9 @@ class HikeActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var journeyStartedTime : HashMap<String,Int>
     private lateinit var journeyEndTime : HashMap<String,Int>
-
+    //private lateinit var speechRecognizer : SpeechRecognizer
+    //private var isActivated: Boolean = false
+   // private val activationKeyword: String = "save checkpoint"
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +73,9 @@ class HikeActivity : AppCompatActivity() {
         distanceView = findViewById(R.id.textViewDistanceTraveledHike)
         currentGpsView = findViewById(R.id.textViewCurrentGPSCoordinateHike)
 
+       // speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
+
+
         startBtn.setOnClickListener {
             if (isStarted){
                 stopHandler()
@@ -86,6 +86,7 @@ class HikeActivity : AppCompatActivity() {
             }
         }
 
+
         addLocBtn.setOnClickListener {
             if (journeyLocations.isNotEmpty() && receivedLocations.isNotEmpty()){
                 if (isLocationEnabled()){
@@ -94,6 +95,7 @@ class HikeActivity : AppCompatActivity() {
                     checkpointView.text = "Number of Checkpoints : ${journeyLocations.size} "
                     gpsView.text = "GPS Lat: ${currentLocation.latitude}  Long: ${currentLocation.longitude}"
                     updateTravelDistance()
+
                 }else{
                     Toast.makeText(this, "Please Enable the Location Service", Toast.LENGTH_SHORT).show()
                 }
@@ -120,6 +122,10 @@ class HikeActivity : AppCompatActivity() {
         }
 
     }
+
+    private var isListening = false
+
+
 
 
     private fun saveData(callback: (Boolean) -> Unit) {
@@ -317,3 +323,111 @@ class HikeActivity : AppCompatActivity() {
     }
 
 }
+
+
+//    private fun startVoiceRecognition() {
+//
+//
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), 222)
+//        } else {
+//            val voiceCommand = "save checkpoint"
+//
+//            // Define a function to start listening for voice commands.
+//            val startListening = {
+//                val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+//                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+//                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-US")
+//                intent.putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE, true)
+//                speechRecognizer.startListening(intent)
+//            }
+//
+//            // Start listening when not already listening.
+//            if (!isListening) {
+//                isListening = true
+//                speechRecognizer.startListening(intent)
+//            }
+//
+//            speechRecognizer.setRecognitionListener(object : RecognitionListener {
+//                override fun onReadyForSpeech(params: Bundle?) {
+//
+//                }
+//
+//                override fun onBeginningOfSpeech() {
+//
+//                }
+//
+//                override fun onRmsChanged(rmsdB: Float) {
+//
+//                }
+//
+//                override fun onBufferReceived(buffer: ByteArray?) {
+//
+//                }
+//                // Implement the RecognitionListener methods as before.
+//
+//                override fun onEndOfSpeech() {
+//                    isListening = false
+//                    startListening() // Restart listening when recognition ends.
+//                }
+//
+//                override fun onError(error: Int) {
+//
+//                }
+//
+//                override fun onResults(results: Bundle?) {
+//                    val matches = results?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+//                    val scores = results?.getFloatArray(SpeechRecognizer.CONFIDENCE_SCORES)
+//                    Log.d("debug","results are  $matches")
+//                    if (matches != null) {
+//                        if (isActivated) {
+//                            isActivated = false
+//                            stopRecognition()
+//                        } else {
+//                            matches.firstOrNull { it.contains(other = activationKeyword, ignoreCase = true) }
+//                                ?.let {
+//                                    isActivated = true
+//                                }
+//                            startVoiceRecognition()
+//                        }
+//                    }
+//                }
+//
+//                override fun onPartialResults(partialResults: Bundle?) {
+//                    val matches = partialResults?.getStringArrayList(RecognizerIntent.EXTRA_RESULTS)
+//                    Log.d("debug","Matches $matches")
+//                    if (!matches.isNullOrEmpty()) {
+//                        val spokenText = matches[0].toLowerCase()
+//                        if (spokenText.contains(voiceCommand)) {
+//                            addCheckpoint()
+//                        }
+//                    }
+//                }
+//
+//                override fun onEvent(eventType: Int, params: Bundle?) {
+//
+//                }
+//            })
+//        }
+//    }
+
+
+//    private fun addCheckpoint() {
+//        if (journeyLocations.isNotEmpty() && receivedLocations.isNotEmpty()) {
+//            if (isLocationEnabled()) {
+//                val currentLocation = receivedLocations.last()
+//                journeyLocations.add(currentLocation)
+//                checkpointView.text = "Number of Checkpoints : ${journeyLocations.size} "
+//                gpsView.text = "GPS Lat: ${currentLocation.latitude}  Long: ${currentLocation.longitude}"
+//                updateTravelDistance()
+//            } else {
+//                Toast.makeText(this, "Please Enable the Location Service", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+//    }
+
+//
+//    private fun stopRecognition() {
+//        speechRecognizer.stopListening()
+//        speechRecognizer.destroy()
+//    }

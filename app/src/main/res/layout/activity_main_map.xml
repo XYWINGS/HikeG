@@ -1,9 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+
+    <AutoCompleteTextView
+        android:id="@+id/actvSearchHikes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="30dp"
+        android:layout_margin="5dp"
+        android:autofillHints="@string/search_by_hike_name"
+        android:completionThreshold="1"
+        android:hint="@string/search_by_hike_name"
+        android:padding="10dp"
+
+
+        />
+
+    <androidx.fragment.app.FragmentContainerView
     android:id="@+id/map"
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainMapActivity" />
+
+</LinearLayout>

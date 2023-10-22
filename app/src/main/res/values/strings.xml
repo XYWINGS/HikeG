@@ -122,4 +122,5 @@
     <string name="hike_date_and_time">Hike Date and Time</string>
     <string name="hike_name">Hike Name</string>
     <string name="title_activity_main_map">MainMapActivity</string>
+    <string name="search_by_hike_name">Search by Hike Name</string>
 </resources>

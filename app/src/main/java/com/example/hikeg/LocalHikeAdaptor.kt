@@ -49,10 +49,10 @@ class LocalHikeAdaptor (private val record:MutableList<AHike> , private val cont
 
         holder.uploadBtn.setOnClickListener {
             if ( isInternetAvailable(context)){
-                Log.d("debug","Imcalled")
                 FirebaseDatabase.getInstance("https://hikeg-168f2-default-rtdb.asia-southeast1.firebasedatabase.app").reference
+                    .child("HikeRecords")
                     .child(item.author)
-                    .child(item.dateTimeCreated)
+                    .child(item.hikeName)
                     .setValue(item)
                     .addOnSuccessListener {
                         removeFromLocalStorage(item)
