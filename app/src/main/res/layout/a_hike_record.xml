@@ -7,6 +7,7 @@
     android:orientation="vertical"
     android:padding="10dp"
     >
+
     <TextView
         android:id="@+id/hikeNameTextViewHiker"
         android:layout_width="wrap_content"
@@ -48,7 +49,8 @@
         android:layout_margin="3dp"
         android:text="@string/upload_hike_record"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        />
 
 
     <Button
@@ -59,7 +61,10 @@
         android:layout_margin="3dp"
         android:text="@string/delete_hike_record"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:background="@drawable/buttonoutline"
+        android:textColor="@color/black"
+        />
 
 
 </LinearLayout>

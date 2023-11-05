@@ -5,49 +5,64 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:background="@drawable/back4">
 
-    <EditText
-        android:id="@+id/editTextTextEmailAddress"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_gravity="center"
-        android:layout_margin="5dp"
-        android:autofillHints="@string/hintemail"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="@string/hintemail"
-        android:inputType="textEmailAddress" />
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@drawable/embosedbackground"
+        android:backgroundTint="#E6D1D1"
+        android:elevation="10dp"
+        android:orientation="vertical"
+        android:padding="10dp"
+        >
 
-    <EditText
-        android:id="@+id/editTextTextPassword"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_gravity="center"
-        android:layout_margin="5dp"
-        android:autofillHints="@string/hintpassword"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="@string/hintpassword"
-        android:inputType="textPassword"
-        android:text="123456" />
 
-    <Button
-        android:id="@+id/loginBtn"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
-        android:layout_margin="5dp"
-        android:gravity="center"
-        android:text="@string/txtlogin" />
+        <EditText
+            android:id="@+id/editTextTextEmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:autofillHints="@string/hintemail"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/hintemail"
+            android:inputType="textEmailAddress" />
 
-    <Button
-        android:id="@+id/regBtn"
-        android:layout_width="match_parent"
-        android:layout_height="62dp"
-        android:layout_gravity="center"
-        android:layout_margin="5dp"
-        android:gravity="center"
-        android:text="@string/regBtn" />
+        <EditText
+            android:id="@+id/editTextTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:autofillHints="@string/hintpassword"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/hintpassword"
+            android:inputType="textPassword"
+            android:text="123456" />
 
+        <Button
+            android:id="@+id/loginBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:text="@string/txtlogin" />
+
+        <Button
+            android:id="@+id/regBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:background="@drawable/buttonoutline"
+            android:text="@string/regBtn" />
+
+    </LinearLayout>
 </LinearLayout>

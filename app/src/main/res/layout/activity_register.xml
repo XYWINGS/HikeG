@@ -5,9 +5,20 @@
     android:orientation="vertical"
     android:elevation="4dp"
     android:gravity="center"
-    android:padding="4dp">
+    android:padding="4dp"
+    android:background="@drawable/back2">
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="@drawable/embosedbackground"
+            android:backgroundTint="#FCFFFD"
+            android:elevation="10dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            >
 
         <EditText
             android:id="@+id/editTextTextRegisterName"
@@ -77,5 +88,7 @@
             android:layout_margin="5dp"
             android:gravity="center"
             android:text="@string/regBtn" />
+
+        </LinearLayout>
 
 </LinearLayout>

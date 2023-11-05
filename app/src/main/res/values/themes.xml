@@ -1,9 +1,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.HikeG" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+<!--        <item name="colorPrimary">@color/hikeGreen</item> -->
+        <item name="colorOnPrimary">@color/white</item> <!-- Text color on the primary background -->
+        <item name="colorSurface">@color/brown</item> <!-- Secondary Background Color (Brown) -->
+        <item name="colorOnSurface">@color/white</item> <!-- Text color on the secondary background -->
+        <item name="colorAccent">@color/black</item> <!-- Accent Color (Yellow) -->
+
     </style>
+
 
     <style name="Theme.HikeG" parent="Base.Theme.HikeG" />
 </resources>
