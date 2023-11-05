@@ -1,5 +1,7 @@
 package com.example.hikeg
 
+import android.Manifest
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -9,6 +11,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -23,6 +26,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.util.Calendar
 import java.util.Locale
 
 class MainMapActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -55,11 +59,27 @@ class MainMapActivity : AppCompatActivity(), OnMapReadyCallback {
                 val searchQuery = editable.toString().lowercase()
                 suggestionList.clear()
                 // Extract hike names from DataSnapshot list
-                for (dataSnapshot in hikeList) {
-                    val hikeName = dataSnapshot.key.toString()
-                    if (hikeName.lowercase().contains(searchQuery)) {
+//                for (dataSnapshot in hikeList) {
+//                    val hikeName = dataSnapshot.key.toString()
+//                    if (hikeName.lowercase().contains(searchQuery)) {
+//                        suggestionList.add(hikeName)
+//                        hikeSnapshotMap[hikeName] = dataSnapshot
+//                    }
+//                }
+                if (searchQuery == "all") {
+                    for (dataSnapshot in hikeList) {
+                        val hikeName = dataSnapshot.key.toString()
                         suggestionList.add(hikeName)
                         hikeSnapshotMap[hikeName] = dataSnapshot
+                    }
+                } else {
+                    // Otherwise, extract hike names that match the search query
+                    for (dataSnapshot in hikeList) {
+                        val hikeName = dataSnapshot.key.toString()
+                        if (hikeName.lowercase().contains(searchQuery)) {
+                            suggestionList.add(hikeName)
+                            hikeSnapshotMap[hikeName] = dataSnapshot
+                        }
                     }
                 }
 
@@ -98,14 +118,18 @@ class MainMapActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-
-
+    private fun checkPermission(): Boolean {
+        return ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+    }
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         val sriLankaLatLng = LatLng(7.8731, 80.7718)
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sriLankaLatLng, 8.0f))
         startThings()
+        if (checkPermission()){
+            mMap.isMyLocationEnabled = true
+        }
     }
 
     private fun startThings() {

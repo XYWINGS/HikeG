@@ -201,6 +201,13 @@ class HikeActivity : AppCompatActivity() {
                 receivedLocations.add(currentLocation)
                 currentGpsView.text = "Current GPS Lat: ${currentLocation.latitude}  Long: ${currentLocation.longitude}"
                 if (!isOriginAdded) {
+
+                    gpsView.visibility = View.VISIBLE
+                    timeView.visibility = View.VISIBLE
+                    checkpointView.visibility = View.VISIBLE
+                    distanceView.visibility = View.VISIBLE
+                    currentGpsView.visibility = View.VISIBLE
+
                     removeLocBtn.visibility = View.VISIBLE
                     addLocBtn.visibility = View.VISIBLE
                     startBtn.setImageResource(R.drawable.baseline_share_location_24)
