@@ -1,4 +1,4 @@
-```markdown
+
 # 🥾 HikeG — Smart Hiking Assistant App
 
 **HikeG** is a mobile application designed to assist hikers with intelligent trail tracking, real-time GPS features, and community-based trail sharing. Built with safety and exploration in mind, **HikeG** reached the **finals of HackX 8.0**, standing out as a practical and innovative outdoor companion.
@@ -80,5 +80,3 @@ Finalist at **HackX 8.0** for its innovation in enhancing outdoor safety and hik
 ## 🤝 Contribute
 
 Have ideas or want to help? Feel free to submit issues or pull requests to help improve HikeG.
-
----
